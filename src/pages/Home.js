@@ -5,17 +5,34 @@ import { db } from "../firebase-config";
 import Vehicles from "./Vehicles";
 import Services from "./Services";
 function Home() {
-  const [vehiclesList, setVehiclesList] = useState([]);
-  const [servicesList, setVehiclesServicesList] = useState([]);
-  const [showServices, setShowServices] = useState(false);
   const vehiclesCollectionRef = collection(db, "vehicles");
   useEffect(() => {
     const getVehicles = async () => {
       const data = await getDocs(vehiclesCollectionRef);
-      setVehiclesList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      const allVehicles = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setVehiclesList(allVehicles);
+      console.log("test");
     };
     getVehicles();
-  });
+  }, []);
+
+  const getVehicleInfo = (id) => {
+    const vehicle = vehiclesList.filter((vehicle) => vehicle.id === id);
+    setCurrentVehicle(vehicle[0]);
+  };
+  const [vehiclesList, setVehiclesList] = useState([]);
+  const [servicesList, setServicesList] = useState([]);
+  const [currentVehicle, setCurrentVehicle] = useState([]);
+
+  const getServices = async (id) => {
+    const data = await getDocs(vehiclesCollectionRef);
+    const vehicles = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+    const targetVehicle = vehicles.filter((vehicle) => vehicle.id === id);
+    setServicesList(targetVehicle.map((vehicle) => vehicle.services));
+  };
 
   return (
     <div className="main">
@@ -25,9 +42,10 @@ function Home() {
         <Vehicles
           className="vehicles-container"
           vehiclesList={vehiclesList}
-          setShowServices={setShowServices}
+          getServices={getServices}
+          getVehicleInfo={getVehicleInfo}
         />
-        <Services />
+        <Services servicesList={servicesList} currentVehicle={currentVehicle} />
       </div>
     </div>
   );

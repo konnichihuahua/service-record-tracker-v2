@@ -1,17 +1,39 @@
 import React from "react";
-import { doc, updateDoc } from "firebase/firestore";
-import { db } from "../firebase-config";
+import AddService from "./AddService";
+import { useState } from "react";
 
-function Services() {
-  const addVehicleToDatabase = async (id, name) => {
-    console.log("meow");
-    const vehicleDoc = doc(db, "vehicles", "kk2huV0ecGuSa9HZqElY");
-    const updatedService = { name: "dominar400" };
-    await updateDoc(vehicleDoc, updatedService);
-  };
+function Services({ servicesList, currentVehicle }) {
+  const [showAddService, setShowAddService] = useState(false);
   return (
-    <div>
-      <button onClick={addVehicleToDatabase}> Add Service Test</button>
+    <div className="services">
+      <button
+        className="btn"
+        onClick={() => {
+          if (showAddService === true) {
+            setShowAddService(false);
+          } else {
+            setShowAddService(true);
+          }
+        }}
+      >
+        {" "}
+        {showAddService ? "Close" : "Add Service"}{" "}
+      </button>
+      {showAddService && <AddService />}
+      <div className="services-title"> SERVICE RECORD</div>
+      <div className="services-vehicle-name">Vehicle Name:</div>{" "}
+      {currentVehicle.name} <br /> Year Model: {currentVehicle.year} <br />
+      <br />
+      Services Rendered:
+      {servicesList.map((service) => {
+        const { name, id, date } = service;
+        return (
+          <li key={id}>
+            {" "}
+            {name} {date}
+          </li>
+        );
+      })}
     </div>
   );
 }

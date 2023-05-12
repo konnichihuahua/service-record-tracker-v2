@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useRef } from "react";
-import { addDoc, collection, updateDoc, doc } from "firebase/firestore";
+import { updateDoc, doc } from "firebase/firestore";
 import { db } from "../firebase-config";
 
 function AddVehicle() {
@@ -23,16 +23,16 @@ function AddVehicle() {
       img: enteredImage,
     };
 
-    const addVehicleToDatabase = async (id) => {
-      const vehicleDoc = doc(db, "vehicles", id);
-      const updatedService = { services: "meow" };
+    const addServiceToVehicle = async (id) => {
+      const vehicleDoc = doc(db, "vehicles", "kk2huV0ecGuSa9HZqElY");
+      const updatedService = { services: newService };
       await updateDoc(vehicleDoc, updatedService);
     };
-    addVehicleToDatabase();
+    addServiceToVehicle();
   };
 
   return (
-    <div className="loginPage">
+    <div>
       <div className="form-container">
         <div className="welcome-heading">Add Service</div>
         <div className="welcome-subheading">

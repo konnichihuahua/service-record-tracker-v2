@@ -30,7 +30,7 @@ function Services({ servicesList, currentVehicle, setServicesList }) {
       )}
       <div className="services-title"> SERVICE RECORD</div>
       <div className="services-vehicle-name">Vehicle Name:</div>{" "}
-      {currentVehicle.name} <br /> Year Model: {currentVehicle.year} <br />
+      {currentVehicle.name} Year Model: {currentVehicle.year} <br />
       Services Rendered:
       {servicesList.map((service) => {
         const { name, id, date } = service;

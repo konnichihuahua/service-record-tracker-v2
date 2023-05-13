@@ -1,9 +1,14 @@
 import React from "react";
 import { useState, useRef } from "react";
-import { updateDoc, doc } from "firebase/firestore";
+import { updateDoc, doc, arrayUnion } from "firebase/firestore";
 import { db } from "../firebase-config";
 
-function AddVehicle() {
+function AddVehicle({
+  currentVehicle,
+  setShowAddService,
+  servicesList,
+  setServicesList,
+}) {
   const [serviceName, setserviceName] = useState("");
   const [serviceYear, setserviceYear] = useState("");
   const [serviceImage, setserviceImage] = useState("");
@@ -23,12 +28,16 @@ function AddVehicle() {
       img: enteredImage,
     };
 
-    const addServiceToVehicle = async (id) => {
-      const vehicleDoc = doc(db, "vehicles", "kk2huV0ecGuSa9HZqElY");
-      const updatedService = { services: newService };
+    const addServiceToVehicle = async () => {
+      const vehicleDoc = doc(db, "vehicles", currentVehicle.id);
+
+      const updatedService = {
+        services: arrayUnion(newService),
+      };
       await updateDoc(vehicleDoc, updatedService);
     };
     addServiceToVehicle();
+    setShowAddService(false);
   };
 
   return (

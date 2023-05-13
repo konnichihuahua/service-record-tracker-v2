@@ -4,9 +4,10 @@ import { getDocs, collection } from "firebase/firestore";
 import { db } from "../firebase-config";
 import Vehicles from "./Vehicles";
 import Services from "./Services";
+
 function Home() {
-  const vehiclesCollectionRef = collection(db, "vehicles");
   useEffect(() => {
+    const vehiclesCollectionRef = collection(db, "vehicles");
     const getVehicles = async () => {
       const data = await getDocs(vehiclesCollectionRef);
       const allVehicles = data.docs.map((doc) => ({
@@ -28,10 +29,12 @@ function Home() {
   const [currentVehicle, setCurrentVehicle] = useState([]);
 
   const getServices = async (id) => {
+    const vehiclesCollectionRef = collection(db, "vehicles");
     const data = await getDocs(vehiclesCollectionRef);
     const vehicles = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
     const targetVehicle = vehicles.filter((vehicle) => vehicle.id === id);
     setServicesList(targetVehicle.map((vehicle) => vehicle.services));
+    console.log(servicesList);
   };
 
   return (
@@ -45,7 +48,11 @@ function Home() {
           getServices={getServices}
           getVehicleInfo={getVehicleInfo}
         />
-        <Services servicesList={servicesList} currentVehicle={currentVehicle} />
+        <Services
+          servicesList={servicesList}
+          currentVehicle={currentVehicle}
+          setServicesList={setServicesList}
+        />
       </div>
     </div>
   );

@@ -2,12 +2,13 @@ import React from "react";
 import AddService from "./AddService";
 import { useState } from "react";
 
-function Services({ servicesList, currentVehicle }) {
+function Services({ servicesList, currentVehicle, setServicesList }) {
   const [showAddService, setShowAddService] = useState(false);
+
   return (
     <div className="services">
       <button
-        className="btn"
+        className="add-service-btn"
         onClick={() => {
           if (showAddService === true) {
             setShowAddService(false);
@@ -19,14 +20,21 @@ function Services({ servicesList, currentVehicle }) {
         {" "}
         {showAddService ? "Close" : "Add Service"}{" "}
       </button>
-      {showAddService && <AddService />}
+      {showAddService && (
+        <AddService
+          currentVehicle={currentVehicle}
+          setShowAddService={setShowAddService}
+          servicesList={servicesList}
+          setServicesList={setServicesList}
+        />
+      )}
       <div className="services-title"> SERVICE RECORD</div>
       <div className="services-vehicle-name">Vehicle Name:</div>{" "}
       {currentVehicle.name} <br /> Year Model: {currentVehicle.year} <br />
-      <br />
       Services Rendered:
       {servicesList.map((service) => {
         const { name, id, date } = service;
+
         return (
           <li key={id}>
             {" "}

@@ -1,9 +1,30 @@
 import React from "react";
 import AddService from "./AddService";
 import { useState } from "react";
+import { doc, updateDoc, arrayRemove } from "firebase/firestore";
+import { db } from "../firebase-config";
 
-function Services({ servicesList, currentVehicle, setServicesList }) {
+function Services({
+  servicesList,
+  currentVehicle,
+  setServicesList,
+  getServices,
+}) {
   const [showAddService, setShowAddService] = useState(false);
+
+  const removeService = (id) => {
+    const newServices = servicesList.filter((service) => service.id !== id);
+    const targetService = servicesList.filter((service) => service.id === id);
+    console.log(newServices);
+    setServicesList(newServices);
+
+    const removeServiceOnDatabase = async (id) => {
+      console.log(targetService[0]);
+      const vehicleDoc = doc(db, "vehicles", currentVehicle.id);
+      await updateDoc(vehicleDoc, { services: arrayRemove(targetService[0]) });
+    };
+    removeServiceOnDatabase();
+  };
 
   return (
     <div className="services">
@@ -26,6 +47,7 @@ function Services({ servicesList, currentVehicle, setServicesList }) {
           setShowAddService={setShowAddService}
           servicesList={servicesList}
           setServicesList={setServicesList}
+          getServices={getServices}
         />
       )}
       <div className="services-title"> SERVICE RECORD</div>
@@ -38,7 +60,8 @@ function Services({ servicesList, currentVehicle, setServicesList }) {
         return (
           <li key={id}>
             {" "}
-            {name} {date}
+            {name} {date}{" "}
+            <button onClick={() => removeService(id)}> Remove</button>
           </li>
         );
       })}

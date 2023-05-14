@@ -33,7 +33,6 @@ function Home() {
     const vehicles = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
     const targetVehicle = vehicles.filter((vehicle) => vehicle.id === id);
     setServicesList(targetVehicle.map((vehicle) => vehicle.services)[0]);
-    console.log(servicesList);
   };
 
   return (
@@ -51,6 +50,7 @@ function Home() {
           servicesList={servicesList}
           currentVehicle={currentVehicle}
           setServicesList={setServicesList}
+          getServices={getServices}
         />
       </div>
     </div>

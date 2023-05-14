@@ -3,12 +3,7 @@ import { useState, useRef } from "react";
 import { updateDoc, doc, arrayUnion } from "firebase/firestore";
 import { db } from "../firebase-config";
 
-function AddVehicle({
-  currentVehicle,
-  setShowAddService,
-  servicesList,
-  setServicesList,
-}) {
+function AddServices({ currentVehicle, setShowAddService, getServices }) {
   const [serviceName, setserviceName] = useState("");
   const [serviceYear, setserviceYear] = useState("");
   const [serviceImage, setserviceImage] = useState("");
@@ -38,6 +33,7 @@ function AddVehicle({
     };
     addServiceToVehicle();
     setShowAddService(false);
+    getServices(currentVehicle.id);
   };
 
   return (
@@ -81,4 +77,4 @@ function AddVehicle({
     </div>
   );
 }
-export default AddVehicle;
+export default AddServices;

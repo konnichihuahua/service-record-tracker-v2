@@ -45,6 +45,9 @@ function Home() {
           vehiclesList={vehiclesList}
           getServices={getServices}
           getVehicleInfo={getVehicleInfo}
+          setVehiclesList={setVehiclesList}
+          setServicesList={setServicesList}
+          setCurrentVehicle={setCurrentVehicle}
         />
         <Services
           servicesList={servicesList}

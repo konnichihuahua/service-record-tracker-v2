@@ -12,6 +12,7 @@ function Vehicles({
 }) {
   const removeVehicle = async (id) => {
     const newVehicles = vehiclesList.filter((vehicle) => vehicle.id !== id);
+
     await deleteDoc(doc(db, "vehicles", id));
     setVehiclesList(newVehicles);
     setServicesList([]);
@@ -22,21 +23,29 @@ function Vehicles({
       {vehiclesList.map((vehicle) => {
         return (
           <div className="vehicle" key={vehicle.id}>
-            <img
-              className="vehicle-img"
-              alt={vehicle.name}
-              src={vehicle.img}
-              onClick={() => {
-                getVehicleInfo(vehicle.id);
-                getServices(vehicle.id);
-              }}
-            ></img>
-            <div className="vehicle-name">{vehicle.name} </div>
-            <div className="vehicle-year"> {vehicle.year} </div>
-            <button onClick={() => removeVehicle(vehicle.id)}>
-              {" "}
-              remove vehicle
-            </button>
+            <div className="vehicle-img-container">
+              <img
+                className="vehicle-img"
+                alt={vehicle.name}
+                src={vehicle.img}
+                onClick={() => {
+                  getVehicleInfo(vehicle.id);
+                  getServices(vehicle.id);
+                }}
+              />
+            </div>
+            <div className="vehicle-info">
+              <div className="vehicle-name">{vehicle.name} </div>
+              <div className="vehicle-year"> Year Model: {vehicle.year} </div>
+            </div>
+            <div className="remove-btn-container">
+              <button
+                className="remove-vehicle-btn"
+                onClick={() => removeVehicle(vehicle.id)}
+              >
+                remove
+              </button>
+            </div>
           </div>
         );
       })}

@@ -37,9 +37,8 @@ function Home() {
 
   return (
     <div className="main">
-      <div className="form-container">
-        <h2>Your Vehicles</h2>
-        <div className="gradient"> </div>
+      <div className="container">
+        <div className="your-vehicles">Your Vehicles</div>
         <Vehicles
           className="vehicles-container"
           vehiclesList={vehiclesList}

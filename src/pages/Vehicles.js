@@ -43,7 +43,7 @@ function Vehicles({
                 className="remove-vehicle-btn"
                 onClick={() => removeVehicle(vehicle.id)}
               >
-                remove
+                x
               </button>
             </div>
           </div>

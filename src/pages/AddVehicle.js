@@ -32,43 +32,38 @@ function AddVehicle() {
   };
 
   return (
-    <div className="loginPage">
-      <div className="form-container">
-        <div className="welcome-heading">Add Vehicle</div>
-        <div className="welcome-subheading">
-          Input information about your vehicle.
-        </div>
-        <form className="add-vehicle-form">
-          <label>
-            Vehicle Name:
-            <input
-              type="text"
-              ref={vehicleNameInputRef}
-              value={vehicleName}
-              onChange={(e) => setVehicleName(e.target.value)}
-            ></input>
-          </label>
-          <label>
-            Year Model:
-            <input
-              type="text"
-              ref={vehicleYearInputRef}
-              value={vehicleYear}
-              onChange={(e) => setVehicleYear(e.target.value)}
-            ></input>
-          </label>
-          <label>
-            Image Link:
-            <input
-              type="url"
-              ref={vehicleImageInputRef}
-              value={vehicleImage}
-              onChange={(e) => setVehicleImage(e.target.value)}
-            ></input>
-          </label>
-          <input type="submit" className="btn" onClick={submitHandler} />
-        </form>
+    <div className="form-container">
+      <div className="welcome-heading">Add Vehicle</div>
+      <div className="welcome-subheading">
+        Input information about your vehicle.
       </div>
+      <form className="add-vehicle-form">
+        <label>Vehicle Name: </label>
+        <input
+          type="text"
+          ref={vehicleNameInputRef}
+          value={vehicleName}
+          onChange={(e) => setVehicleName(e.target.value)}
+        ></input>
+
+        <label>Year Model: </label>
+        <input
+          type="text"
+          ref={vehicleYearInputRef}
+          value={vehicleYear}
+          onChange={(e) => setVehicleYear(e.target.value)}
+        ></input>
+
+        <label>Image Link: </label>
+        <input
+          type="url"
+          ref={vehicleImageInputRef}
+          value={vehicleImage}
+          onChange={(e) => setVehicleImage(e.target.value)}
+        ></input>
+
+        <input type="submit" className="btn" onClick={submitHandler} />
+      </form>
     </div>
   );
 }

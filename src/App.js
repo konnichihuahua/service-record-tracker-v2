@@ -30,8 +30,6 @@ function App() {
           </Link>
           <Link to="/"> Home </Link>
           <Link to="/about"> About </Link>
-          {isAuth && <Link to="/addvehicle"> Add Vehicle </Link>}
-          {isAuth && <Link to="/addservice"> Add Service </Link>}
         </div>
         <div className="right-menu">
           {!isAuth ? (

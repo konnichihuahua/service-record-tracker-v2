@@ -4,6 +4,7 @@ import { getDocs, collection } from "firebase/firestore";
 import { db } from "../firebase-config";
 import Vehicles from "./Vehicles";
 import Services from "./Services";
+import AddVehicle from "./AddVehicle";
 
 function Home() {
   useEffect(() => {
@@ -26,7 +27,7 @@ function Home() {
   const [vehiclesList, setVehiclesList] = useState([]);
   const [servicesList, setServicesList] = useState([]);
   const [currentVehicle, setCurrentVehicle] = useState([]);
-
+  const [showAddVehicle, setshowAddVehicle] = useState(false);
   const getServices = async (id) => {
     const vehiclesCollectionRef = collection(db, "vehicles");
     const data = await getDocs(vehiclesCollectionRef);
@@ -37,8 +38,19 @@ function Home() {
 
   return (
     <div className="main">
+      <div className="your-vehicles">
+        Vehicles
+        <button
+          className="add-vehicle-btn"
+          onClick={() =>
+            showAddVehicle ? setshowAddVehicle(false) : setshowAddVehicle(true)
+          }
+        >
+          {showAddVehicle ? "-" : "+"}
+        </button>
+      </div>
+      {showAddVehicle && <AddVehicle />}
       <div className="container">
-        <div className="your-vehicles">Your Vehicles</div>
         <Vehicles
           className="vehicles-container"
           vehiclesList={vehiclesList}

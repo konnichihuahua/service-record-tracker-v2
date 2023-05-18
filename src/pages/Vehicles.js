@@ -1,6 +1,7 @@
 import React from "react";
 import { doc, deleteDoc } from "firebase/firestore";
 import { db } from "../firebase-config";
+import { FcCalendar } from "react-icons/fc";
 
 function Vehicles({
   vehiclesList,
@@ -36,7 +37,9 @@ function Vehicles({
             </div>
             <div className="vehicle-info">
               <div className="vehicle-name">{vehicle.name} </div>
-              <div className="vehicle-year"> Year Model: {vehicle.year} </div>
+              <div className="vehicle-year">
+                <FcCalendar /> Year Model: {vehicle.year}{" "}
+              </div>
             </div>
             <div className="remove-btn-container">
               <button

@@ -13,7 +13,6 @@ function Vehicles({
 }) {
   const removeVehicle = async (id) => {
     const newVehicles = vehiclesList.filter((vehicle) => vehicle.id !== id);
-
     await deleteDoc(doc(db, "vehicles", id));
     setVehiclesList(newVehicles);
     setServicesList([]);
@@ -23,16 +22,19 @@ function Vehicles({
     <div className="vehicles-container">
       {vehiclesList.map((vehicle) => {
         return (
-          <div className="vehicle" key={vehicle.id}>
+          <div
+            className="vehicle"
+            onClick={() => {
+              getVehicleInfo(vehicle.id);
+              getServices(vehicle.id);
+            }}
+            key={vehicle.id}
+          >
             <div className="vehicle-img-container">
               <img
                 className="vehicle-img"
                 alt={vehicle.name}
                 src={vehicle.img}
-                onClick={() => {
-                  getVehicleInfo(vehicle.id);
-                  getServices(vehicle.id);
-                }}
               />
             </div>
             <div className="vehicle-info">
@@ -44,7 +46,10 @@ function Vehicles({
             <div className="remove-btn-container">
               <button
                 className="remove-vehicle-btn"
-                onClick={() => removeVehicle(vehicle.id)}
+                onClick={(e) => {
+                  removeVehicle(vehicle.id);
+                  e.stopPropagation();
+                }}
               >
                 x
               </button>

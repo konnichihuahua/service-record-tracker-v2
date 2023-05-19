@@ -7,7 +7,16 @@ import Services from "./Services";
 import AddVehicle from "./AddVehicle";
 
 function Home() {
+  const getVehicleInfo = (id) => {
+    const vehicle = vehiclesList.filter((vehicle) => vehicle.id === id);
+    setCurrentVehicle(vehicle[0]);
+  };
+  const [vehiclesList, setVehiclesList] = useState([]);
+  const [servicesList, setServicesList] = useState([]);
+  const [currentVehicle, setCurrentVehicle] = useState([]);
+  const [showAddVehicle, setshowAddVehicle] = useState(false);
   useEffect(() => {
+    console.log("renders");
     const vehiclesCollectionRef = collection(db, "vehicles");
     const getVehicles = async () => {
       const data = await getDocs(vehiclesCollectionRef);
@@ -18,16 +27,8 @@ function Home() {
       setVehiclesList(allVehicles);
     };
     getVehicles();
-  }, []);
+  }, [showAddVehicle]);
 
-  const getVehicleInfo = (id) => {
-    const vehicle = vehiclesList.filter((vehicle) => vehicle.id === id);
-    setCurrentVehicle(vehicle[0]);
-  };
-  const [vehiclesList, setVehiclesList] = useState([]);
-  const [servicesList, setServicesList] = useState([]);
-  const [currentVehicle, setCurrentVehicle] = useState([]);
-  const [showAddVehicle, setshowAddVehicle] = useState(false);
   const getServices = async (id) => {
     const vehiclesCollectionRef = collection(db, "vehicles");
     const data = await getDocs(vehiclesCollectionRef);
@@ -49,7 +50,12 @@ function Home() {
           {showAddVehicle ? "-" : "+"}
         </button>
       </div>
-      {showAddVehicle && <AddVehicle />}
+      {showAddVehicle && (
+        <AddVehicle
+          setshowAddVehicle={setshowAddVehicle}
+          getServices={getServices}
+        />
+      )}
       <div className="container">
         <Vehicles
           className="vehicles-container"

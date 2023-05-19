@@ -3,7 +3,7 @@ import { useState, useRef } from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../firebase-config";
 
-function AddVehicle() {
+function AddVehicle({ setshowAddVehicle, getServices }) {
   const [vehicleName, setVehicleName] = useState("");
   const [vehicleYear, setVehicleYear] = useState("");
   const [vehicleImage, setVehicleImage] = useState("");
@@ -29,6 +29,7 @@ function AddVehicle() {
       await addDoc(vehiclesCollectionRef, newVehicle);
     };
     addVehicleToDatabase();
+    setshowAddVehicle(false);
   };
 
   return (

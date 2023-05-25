@@ -1,6 +1,9 @@
 import React from "react";
 import { useState, useRef } from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../firebase-config";
+
 function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,7 +21,16 @@ function Signup() {
         const user = userCredential.user;
         console.log(user.email);
         console.log(user.uid);
+        const userCollectionRef = collection(db, "users");
+        const newUser = {
+          id: Math.random(),
+          email: user.email,
+        };
+        const addUserToDatabase = async () => {
+          await addDoc(userCollectionRef, newUser);
+        };
         // ...
+        addUserToDatabase();
       })
       .catch((error) => {
         const errorCode = error.code;

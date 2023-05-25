@@ -12,13 +12,19 @@
   pointer-events: none;
 }
 
+.App {
+  padding: 1rem;
+}
 .main{
   background-color: #dfe6e9;
   gap: 1rem;
+  padding: 1rem 1rem 1rem 1rem;
+  border-radius: 1rem;
   display: flex;
   align-items: center;
+  height: 80vh;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .about {
@@ -220,7 +226,7 @@ input {
   padding: 1rem 1rem 1rem 2rem;
   width: 100%;
   border-radius:15px;
-  margin-top: -15px;
+  margin-top: 0.25rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   
 }

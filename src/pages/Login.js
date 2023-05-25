@@ -8,6 +8,7 @@ function Login({ setIsAuth }) {
       localStorage.setItem("isAuth", true);
       setIsAuth(true);
     });
+    console.log(auth);
   };
   return (
     <div className="loginPage">
@@ -21,6 +22,7 @@ function Login({ setIsAuth }) {
           <div className="google-icon-wrapper">
             <img
               className="google-icon"
+              alt=""
               src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
             />
           </div>

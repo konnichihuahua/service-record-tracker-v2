@@ -10,6 +10,7 @@ function Vehicles({
   setVehiclesList,
   setServicesList,
   setCurrentVehicle,
+  setShowServices,
 }) {
   const removeVehicle = async (id) => {
     const newVehicles = vehiclesList.filter((vehicle) => vehicle.id !== id);
@@ -27,6 +28,7 @@ function Vehicles({
             onClick={() => {
               getVehicleInfo(vehicle.id);
               getServices(vehicle.id);
+              setShowServices(true);
             }}
             key={vehicle.id}
           >

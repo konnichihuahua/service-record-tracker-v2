@@ -15,6 +15,8 @@ function Home() {
   const [servicesList, setServicesList] = useState([]);
   const [currentVehicle, setCurrentVehicle] = useState([]);
   const [showAddVehicle, setshowAddVehicle] = useState(false);
+  const [showServices, setShowServices] = useState(false);
+
   useEffect(() => {
     console.log("renders");
     const vehiclesCollectionRef = collection(db, "vehicles");
@@ -27,7 +29,7 @@ function Home() {
       setVehiclesList(allVehicles);
     };
     getVehicles();
-  }, [showAddVehicle]);
+  }, []);
 
   const getServices = async (id) => {
     const vehiclesCollectionRef = collection(db, "vehicles");
@@ -38,40 +40,47 @@ function Home() {
   };
 
   return (
-    <div className="main">
-      <div className="your-vehicles">
-        Vehicles
-        <button
-          className="add-vehicle-btn"
-          onClick={() =>
-            showAddVehicle ? setshowAddVehicle(false) : setshowAddVehicle(true)
-          }
-        >
-          {showAddVehicle ? "-" : "+"}
-        </button>
-      </div>
-      {showAddVehicle && (
-        <AddVehicle
-          setshowAddVehicle={setshowAddVehicle}
-          getServices={getServices}
-        />
-      )}
-      <div className="container">
-        <Vehicles
-          className="vehicles-container"
-          vehiclesList={vehiclesList}
-          getServices={getServices}
-          getVehicleInfo={getVehicleInfo}
-          setVehiclesList={setVehiclesList}
-          setServicesList={setServicesList}
-          setCurrentVehicle={setCurrentVehicle}
-        />
-        <Services
-          servicesList={servicesList}
-          currentVehicle={currentVehicle}
-          setServicesList={setServicesList}
-          getServices={getServices}
-        />
+    <div className="App">
+      <div className="main">
+        <div className="your-vehicles">
+          Vehicles
+          <button
+            className="add-vehicle-btn"
+            onClick={() =>
+              showAddVehicle
+                ? setshowAddVehicle(false)
+                : setshowAddVehicle(true)
+            }
+          >
+            {showAddVehicle ? "-" : "+"}
+          </button>
+        </div>
+        {showAddVehicle && (
+          <AddVehicle
+            setshowAddVehicle={setshowAddVehicle}
+            getServices={getServices}
+          />
+        )}
+        <div className="container">
+          <Vehicles
+            className="vehicles-container"
+            vehiclesList={vehiclesList}
+            getServices={getServices}
+            getVehicleInfo={getVehicleInfo}
+            setVehiclesList={setVehiclesList}
+            setServicesList={setServicesList}
+            setCurrentVehicle={setCurrentVehicle}
+            setShowServices={setShowServices}
+          />
+          {showServices && (
+            <Services
+              servicesList={servicesList}
+              currentVehicle={currentVehicle}
+              setServicesList={setServicesList}
+              getServices={getServices}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

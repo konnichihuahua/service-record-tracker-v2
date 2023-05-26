@@ -39,28 +39,23 @@ function Signup() {
       });
   };
   return (
-    <div className="signupPage">
+    <div className="signup-page">
       <form className="signup-form">
-        <label>
-          {" "}
-          Email:
-          <input
-            type="email"
-            ref={emailInputRef}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          ></input>
-        </label>
-        <label>
-          {" "}
-          Password:
-          <input
-            ref={passwordInputRef}
-            value={password}
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-          ></input>
-        </label>
+        <label> Sign up!</label>
+        <label> Email: </label>
+        <input
+          type="email"
+          ref={emailInputRef}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        ></input>
+        <label> Password: </label>
+        <input
+          ref={passwordInputRef}
+          value={password}
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+        ></input>
         <input type="submit" onClick={submitHandler}></input>
       </form>
     </div>

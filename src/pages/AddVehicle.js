@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useRef } from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../firebase-config";
+import { auth } from "../firebase-config";
 
 function AddVehicle({ setshowAddVehicle, getServices }) {
   const [vehicleName, setVehicleName] = useState("");
@@ -23,7 +24,12 @@ function AddVehicle({ setshowAddVehicle, getServices }) {
       img: enteredImage,
       services: [],
     };
-    const vehiclesCollectionRef = collection(db, "vehicles");
+    const vehiclesCollectionRef = collection(
+      db,
+      "users",
+      auth.currentUser.uid,
+      "vehicles"
+    );
 
     const addVehicleToDatabase = async () => {
       await addDoc(vehiclesCollectionRef, newVehicle);

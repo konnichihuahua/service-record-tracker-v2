@@ -45,7 +45,7 @@ function App() {
         </div>
       </nav>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={isAuth ? <Home /> : <Login />} />
         <Route path="signup" element={<Signup />}></Route>
         <Route path="/about" element={<About />} />
         <Route path="/addvehicle" element={<AddVehicle />} />

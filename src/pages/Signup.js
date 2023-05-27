@@ -1,8 +1,9 @@
 import React from "react";
 import { useState, useRef } from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { addDoc, collection } from "firebase/firestore";
+
 import { db } from "../firebase-config";
+import { doc, setDoc } from "firebase/firestore";
 
 function Signup() {
   const [email, setEmail] = useState("");
@@ -21,13 +22,13 @@ function Signup() {
         const user = userCredential.user;
         console.log(user.email);
         console.log(user.uid);
-        const userCollectionRef = collection(db, "users");
+
         const newUser = {
           id: Math.random(),
           email: user.email,
         };
         const addUserToDatabase = async () => {
-          await addDoc(userCollectionRef, newUser);
+          await setDoc(doc(db, "users", user.uid), newUser);
         };
         // ...
         addUserToDatabase();
@@ -35,7 +36,7 @@ function Signup() {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        alert(errorCode, errorMessage);
       });
   };
   return (

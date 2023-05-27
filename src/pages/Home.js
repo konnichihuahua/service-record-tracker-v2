@@ -5,12 +5,14 @@ import { db } from "../firebase-config";
 import Vehicles from "./Vehicles";
 import Services from "./Services";
 import AddVehicle from "./AddVehicle";
+import { auth } from "../firebase-config";
 
 function Home() {
   const getVehicleInfo = (id) => {
     const vehicle = vehiclesList.filter((vehicle) => vehicle.id === id);
     setCurrentVehicle(vehicle[0]);
   };
+
   const [vehiclesList, setVehiclesList] = useState([]);
   const [servicesList, setServicesList] = useState([]);
   const [currentVehicle, setCurrentVehicle] = useState([]);
@@ -19,7 +21,13 @@ function Home() {
 
   useEffect(() => {
     console.log("renders");
-    const vehiclesCollectionRef = collection(db, "vehicles");
+    const vehiclesCollectionRef = collection(
+      db,
+      "users",
+      auth.currentUser.uid,
+      "vehicles"
+    );
+
     const getVehicles = async () => {
       const data = await getDocs(vehiclesCollectionRef);
       const allVehicles = data.docs.map((doc) => ({

@@ -4,6 +4,8 @@ import { signInWithPopup } from "firebase/auth";
 import logo from "../logo.svg";
 import { useState, useRef } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getDocs, collection, setDoc, doc } from "firebase/firestore";
+import { db } from "../firebase-config";
 
 function Login({ setIsAuth }) {
   const [email, setEmail] = useState("");
@@ -11,10 +13,42 @@ function Login({ setIsAuth }) {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const signInWithGoogle = () => {
-    signInWithPopup(auth, provider).then((result) => {
-      localStorage.setItem("isAuth", true);
-      setIsAuth(true);
-    });
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        localStorage.setItem("isAuth", true);
+        console.log(result.user.uid);
+        setIsAuth(true);
+        const usersCollectionRef = collection(db, "users");
+
+        const getUsers = async () => {
+          const data = await getDocs(usersCollectionRef);
+          const allUsers = data.docs.map((doc) => doc.id);
+
+          if (allUsers.includes(result.user.uid)) {
+            console.log("roar");
+          } else {
+            console.log("meow");
+            const newUser = {
+              id: Math.random(),
+              email: result.user.email,
+            };
+            const addUserToDatabase = async () => {
+              await setDoc(doc(db, "users", result.user.uid), newUser);
+            };
+            // ...
+            addUserToDatabase();
+          }
+        };
+        getUsers();
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+
+        alert(errorCode, errorMessage);
+      });
   };
 
   const submitHandler = (e) => {
@@ -24,30 +58,32 @@ function Login({ setIsAuth }) {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, enteredEmail, enteredPassword)
       .then((userCredential) => {
+        setIsAuth(true);
         // Signed in
         // eslint-disable-next-line
         const user = userCredential.user;
         localStorage.setItem("isAuth", true);
-        setIsAuth(true);
 
         // ...
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        alert(errorCode, errorMessage);
+        console.log(errorCode, errorMessage);
       });
   };
   return (
     <div className="loginPage">
       <div className="form-container">
-        <img src={logo} className="App-logo" alt="logo" />
-        <div className="welcome-text">
-          <div className="welcome-heading">Welcome back! </div>
-          <p className="welcome-subheading"> We're excited to see you again.</p>
-        </div>
         <form className="signup-form">
-          <label> Sign up!</label>
+          <img src={logo} className="App-logo" alt="logo" />
+          <div className="welcome-text">
+            <div className="welcome-heading">Welcome back! </div>
+            <p className="welcome-subheading">
+              {" "}
+              We're excited to see you again.
+            </p>
+          </div>
           <label> Email: </label>
           <input
             type="email"

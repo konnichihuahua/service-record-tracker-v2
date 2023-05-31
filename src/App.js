@@ -1,5 +1,11 @@
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  Navigate,
+} from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import AddVehicle from "./pages/AddVehicle";
@@ -17,7 +23,6 @@ function App() {
     signOut(auth).then(() => {
       localStorage.clear();
       setIsAuth(false);
-      window.location.pathname = "/login";
     });
   };
   return (
@@ -45,12 +50,18 @@ function App() {
         </div>
       </nav>
       <Routes>
-        <Route path="/" element={isAuth ? <Home /> : <Login />} />
+        <Route
+          path="/"
+          element={isAuth ? <Home /> : <Navigate to="/login" />}
+        />
         <Route path="signup" element={<Signup />}></Route>
         <Route path="/about" element={<About />} />
         <Route path="/addvehicle" element={<AddVehicle />} />
         <Route path="/addservice" element={<AddService />} />
-        <Route path="/login" element={<Login setIsAuth={setIsAuth} />} />
+        <Route
+          path="/login"
+          element={isAuth ? <Home /> : <Login setIsAuth={setIsAuth} />}
+        />
       </Routes>
     </Router>
   );

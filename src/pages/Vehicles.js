@@ -2,7 +2,7 @@ import React from "react";
 import { doc, deleteDoc } from "firebase/firestore";
 import { db } from "../firebase-config";
 import { FcCalendar } from "react-icons/fc";
-
+import { auth } from "../firebase-config";
 function Vehicles({
   vehiclesList,
   getServices,
@@ -14,7 +14,7 @@ function Vehicles({
 }) {
   const removeVehicle = async (id) => {
     const newVehicles = vehiclesList.filter((vehicle) => vehicle.id !== id);
-    await deleteDoc(doc(db, "vehicles", id));
+    await deleteDoc(doc(db, "users", auth.currentUser.uid, "vehicles", id));
     setVehiclesList(newVehicles);
     setServicesList([]);
     setCurrentVehicle([]);

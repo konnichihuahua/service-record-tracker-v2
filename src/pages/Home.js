@@ -40,7 +40,12 @@ function Home() {
   }, []);
 
   const getServices = async (id) => {
-    const vehiclesCollectionRef = collection(db, "vehicles");
+    const vehiclesCollectionRef = collection(
+      db,
+      "users",
+      auth.currentUser.uid,
+      "vehicles"
+    );
     const data = await getDocs(vehiclesCollectionRef);
     const vehicles = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
     const targetVehicle = vehicles.filter((vehicle) => vehicle.id === id);
@@ -70,22 +75,25 @@ function Home() {
           />
         )}
         <div className="container">
-          <Vehicles
-            className="vehicles-container"
-            vehiclesList={vehiclesList}
-            getServices={getServices}
-            getVehicleInfo={getVehicleInfo}
-            setVehiclesList={setVehiclesList}
-            setServicesList={setServicesList}
-            setCurrentVehicle={setCurrentVehicle}
-            setShowServices={setShowServices}
-          />
+          {!showServices && (
+            <Vehicles
+              className="vehicles-container"
+              vehiclesList={vehiclesList}
+              getServices={getServices}
+              getVehicleInfo={getVehicleInfo}
+              setVehiclesList={setVehiclesList}
+              setServicesList={setServicesList}
+              setCurrentVehicle={setCurrentVehicle}
+              setShowServices={setShowServices}
+            />
+          )}
           {showServices && (
             <Services
               servicesList={servicesList}
               currentVehicle={currentVehicle}
               setServicesList={setServicesList}
               getServices={getServices}
+              setShowServices={setShowServices}
             />
           )}
         </div>

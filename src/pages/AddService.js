@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useRef } from "react";
 import { updateDoc, doc, arrayUnion } from "firebase/firestore";
 import { db } from "../firebase-config";
+import { auth } from "../firebase-config";
 
 function AddServices({ currentVehicle, setShowAddService, getServices }) {
   const [serviceName, setserviceName] = useState("");
@@ -22,9 +23,16 @@ function AddServices({ currentVehicle, setShowAddService, getServices }) {
       date: enteredYear,
       img: enteredImage,
     };
-
+    setShowAddService(false);
+    getServices(currentVehicle.id);
     const addServiceToVehicle = async () => {
-      const vehicleDoc = doc(db, "vehicles", currentVehicle.id);
+      const vehicleDoc = doc(
+        db,
+        "users",
+        auth.currentUser.uid,
+        "vehicles",
+        currentVehicle.id
+      );
 
       const updatedService = {
         services: arrayUnion(newService),
@@ -32,8 +40,6 @@ function AddServices({ currentVehicle, setShowAddService, getServices }) {
       await updateDoc(vehicleDoc, updatedService);
     };
     addServiceToVehicle();
-    setShowAddService(false);
-    getServices(currentVehicle.id);
   };
 
   return (

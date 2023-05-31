@@ -3,12 +3,15 @@ import AddService from "./AddService";
 import { useState } from "react";
 import { doc, updateDoc, arrayRemove } from "firebase/firestore";
 import { db } from "../firebase-config";
+import { auth } from "../firebase-config";
+import { BiArrowBack } from "react-icons/bi";
 
 function Services({
   servicesList,
   currentVehicle,
   setServicesList,
   getServices,
+  setShowServices,
 }) {
   const [showAddService, setShowAddService] = useState(false);
 
@@ -20,7 +23,13 @@ function Services({
 
     const removeServiceOnDatabase = async (id) => {
       console.log(targetService[0]);
-      const vehicleDoc = doc(db, "vehicles", currentVehicle.id);
+      const vehicleDoc = doc(
+        db,
+        "users",
+        auth.currentUser.uid,
+        "vehicles",
+        currentVehicle.id
+      );
       await updateDoc(vehicleDoc, { services: arrayRemove(targetService[0]) });
     };
     removeServiceOnDatabase();
@@ -28,6 +37,7 @@ function Services({
 
   return (
     <div className="services">
+      <BiArrowBack onClick={() => setShowServices(false)} />
       <button
         className="add-service-btn"
         onClick={() => {
@@ -48,6 +58,7 @@ function Services({
           servicesList={servicesList}
           setServicesList={setServicesList}
           getServices={getServices}
+          setShowServices={setShowServices}
         />
       )}
       <div className="services-title"> SERVICE RECORD</div>

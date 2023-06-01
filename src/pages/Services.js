@@ -5,6 +5,7 @@ import { doc, updateDoc, arrayRemove } from "firebase/firestore";
 import { db } from "../firebase-config";
 import { auth } from "../firebase-config";
 import { BiArrowBack } from "react-icons/bi";
+import ServicesInfo from "./ServicesInfo";
 
 function Services({
   servicesList,
@@ -37,20 +38,24 @@ function Services({
 
   return (
     <div className="services">
-      <BiArrowBack onClick={() => setShowServices(false)} />
-      <button
-        className="add-service-btn"
-        onClick={() => {
-          if (showAddService === true) {
-            setShowAddService(false);
-          } else {
-            setShowAddService(true);
-          }
-        }}
-      >
-        {" "}
-        {showAddService ? "Close" : "Add Service"}{" "}
-      </button>
+      {!showAddService && (
+        <BiArrowBack onClick={() => setShowServices(false)} />
+      )}
+      {!showAddService && (
+        <button
+          className="add-service-btn"
+          onClick={() => {
+            if (showAddService === true) {
+              setShowAddService(false);
+            } else {
+              setShowAddService(true);
+            }
+          }}
+        >
+          {" "}
+          Add Service
+        </button>
+      )}
       {showAddService && (
         <AddService
           currentVehicle={currentVehicle}
@@ -61,21 +66,13 @@ function Services({
           setShowServices={setShowServices}
         />
       )}
-      <div className="services-title"> SERVICE RECORD</div>
-      <div className="services-vehicle-name">Vehicle Name:</div>{" "}
-      {currentVehicle.name} Year Model: {currentVehicle.year} <br />
-      Services Rendered:
-      {servicesList.map((service) => {
-        const { name, id, date } = service;
-
-        return (
-          <li key={id}>
-            {" "}
-            {name} {date}{" "}
-            <button onClick={() => removeService(id)}> Remove</button>
-          </li>
-        );
-      })}
+      {!showAddService && (
+        <ServicesInfo
+          currentVehicle={currentVehicle}
+          servicesList={servicesList}
+          removeService={removeService}
+        />
+      )}
     </div>
   );
 }

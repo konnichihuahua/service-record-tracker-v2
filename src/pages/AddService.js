@@ -3,8 +3,13 @@ import { useState, useRef } from "react";
 import { updateDoc, doc, arrayUnion } from "firebase/firestore";
 import { db } from "../firebase-config";
 import { auth } from "../firebase-config";
-
-function AddServices({ currentVehicle, setShowAddService, getServices }) {
+import { BiArrowBack } from "react-icons/bi";
+function AddServices({
+  currentVehicle,
+  setShowAddService,
+  getServices,
+  setShowServices,
+}) {
   const [serviceName, setserviceName] = useState("");
   const [serviceYear, setserviceYear] = useState("");
   const [serviceImage, setserviceImage] = useState("");
@@ -40,11 +45,13 @@ function AddServices({ currentVehicle, setShowAddService, getServices }) {
       await updateDoc(vehicleDoc, updatedService);
     };
     addServiceToVehicle();
+    setShowServices(false);
   };
 
   return (
     <div>
       <div className="form-container">
+        <BiArrowBack onClick={() => setShowAddService(false)} />
         <div className="welcome-heading">Add Service</div>
         <div className="welcome-subheading">
           Input information about your vehicle.

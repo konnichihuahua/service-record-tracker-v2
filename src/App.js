@@ -27,28 +27,6 @@ function App() {
   };
   return (
     <Router>
-      <nav className="nav-bar">
-        <div className="left-menu">
-          <Link to="">
-            {" "}
-            <img src={logo} className="App-logo" alt="logo" />
-          </Link>
-          <Link to="/"> Home </Link>
-          <Link to="/about"> About </Link>
-        </div>
-        <div className="right-menu">
-          {!isAuth ? (
-            <Link to="/login">
-              {" "}
-              <button className="btn">Login</button>{" "}
-            </Link>
-          ) : (
-            <button className="btn" onClick={signUserOut}>
-              Log out
-            </button>
-          )}
-        </div>
-      </nav>
       <Routes>
         <Route
           path="/"
@@ -63,6 +41,28 @@ function App() {
           element={isAuth ? <Home /> : <Login setIsAuth={setIsAuth} />}
         />
       </Routes>
+      <nav className="nav-bar">
+        <div className="left-menu">
+          <Link to="">
+            {" "}
+            <img src={logo} className="App-logo" alt="logo" />
+          </Link>
+          {/* <Link to="/"> Home </Link>
+          <Link to="/about"> About </Link> */}
+        </div>
+        <div className="right-menu">
+          {!isAuth ? (
+            <Link to="/login">
+              {" "}
+              <button className="btn">Login</button>{" "}
+            </Link>
+          ) : (
+            <button className="btn" onClick={signUserOut}>
+              Log out
+            </button>
+          )}
+        </div>
+      </nav>
     </Router>
   );
 }

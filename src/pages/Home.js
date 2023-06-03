@@ -18,7 +18,7 @@ function Home() {
   const [currentVehicle, setCurrentVehicle] = useState([]);
   const [showAddVehicle, setshowAddVehicle] = useState(false);
   const [showServices, setShowServices] = useState(false);
-
+  const [showAddService, setShowAddService] = useState(false);
   useEffect(() => {
     console.log("renders");
     const vehiclesCollectionRef = collection(
@@ -55,19 +55,21 @@ function Home() {
   return (
     <div className="App">
       <div className="main">
-        <div className="your-vehicles">
-          <div>My Vehicles </div>
-          <button
-            className="add-vehicle-btn"
-            onClick={() =>
-              showAddVehicle
-                ? setshowAddVehicle(false)
-                : setshowAddVehicle(true)
-            }
-          >
-            {showAddVehicle ? "-" : "+"}
-          </button>
-        </div>
+        {!showServices && (
+          <div className="your-vehicles">
+            <div>My Vehicles </div>
+            <button
+              className="add-vehicle-btn"
+              onClick={() =>
+                showAddVehicle
+                  ? setshowAddVehicle(false)
+                  : setshowAddVehicle(true)
+              }
+            >
+              {showAddVehicle ? "-" : "+"}
+            </button>
+          </div>
+        )}
         {showAddVehicle && (
           <AddVehicle
             setshowAddVehicle={setshowAddVehicle}
@@ -94,6 +96,8 @@ function Home() {
               setServicesList={setServicesList}
               getServices={getServices}
               setShowServices={setShowServices}
+              showAddService={showAddService}
+              setShowAddService={setShowAddService}
             />
           )}
         </div>

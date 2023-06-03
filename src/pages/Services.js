@@ -13,9 +13,9 @@ function Services({
   setServicesList,
   getServices,
   setShowServices,
+  showAddService,
+  setShowAddService,
 }) {
-  const [showAddService, setShowAddService] = useState(false);
-
   const removeService = (id) => {
     const newServices = servicesList.filter((service) => service.id !== id);
     const targetService = servicesList.filter((service) => service.id === id);
@@ -39,23 +39,13 @@ function Services({
   return (
     <div className="services">
       {!showAddService && (
-        <BiArrowBack onClick={() => setShowServices(false)} />
+        <BiArrowBack
+          onClick={() => setShowServices(false)}
+          className="services-back-btn"
+          size={30}
+        />
       )}
-      {!showAddService && (
-        <button
-          className="add-service-btn"
-          onClick={() => {
-            if (showAddService === true) {
-              setShowAddService(false);
-            } else {
-              setShowAddService(true);
-            }
-          }}
-        >
-          {" "}
-          Add Service
-        </button>
-      )}
+
       {showAddService && (
         <AddService
           currentVehicle={currentVehicle}
@@ -73,6 +63,39 @@ function Services({
           removeService={removeService}
         />
       )}
+      <div className="services-list-section">
+        <div className="services-list-title"> Services Rendered</div>
+        <div className="add-service-btn-container">
+          {!showAddService && (
+            <button
+              className="add-service-btn"
+              onClick={() => {
+                if (showAddService === true) {
+                  setShowAddService(false);
+                } else {
+                  setShowAddService(true);
+                }
+              }}
+            >
+              {" "}
+              Add Service
+            </button>
+          )}
+        </div>
+      </div>
+      <div className="services-list">
+        {servicesList.map((service) => {
+          const { name, id, date } = service;
+
+          return (
+            <li key={id}>
+              {" "}
+              {name} {date}{" "}
+              <button onClick={() => removeService(id)}> Remove</button>
+            </li>
+          );
+        })}
+      </div>
     </div>
   );
 }

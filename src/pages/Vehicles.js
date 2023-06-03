@@ -3,6 +3,7 @@ import { doc, deleteDoc } from "firebase/firestore";
 import { db } from "../firebase-config";
 import { FcCalendar } from "react-icons/fc";
 import { auth } from "../firebase-config";
+import { AiOutlineDoubleRight } from "react-icons/ai";
 function Vehicles({
   vehiclesList,
   getServices,
@@ -46,7 +47,7 @@ function Vehicles({
               </div>
             </div>
             <div className="remove-btn-container">
-              <button
+              {/* <button
                 className="remove-vehicle-btn"
                 onClick={(e) => {
                   removeVehicle(vehicle.id);
@@ -54,7 +55,8 @@ function Vehicles({
                 }}
               >
                 x
-              </button>
+              </button> */}
+              <AiOutlineDoubleRight size={20} />
             </div>
           </div>
         );

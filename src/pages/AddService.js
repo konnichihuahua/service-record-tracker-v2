@@ -45,7 +45,7 @@ function AddServices({
       await updateDoc(vehicleDoc, updatedService);
     };
     addServiceToVehicle();
-    setShowServices(false);
+    setShowServices(true);
   };
 
   return (

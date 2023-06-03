@@ -1,23 +1,13 @@
 import React from "react";
 
-function ServicesInfo({ removeService, currentVehicle, servicesList }) {
+function ServicesInfo({ removeService, currentVehicle }) {
   return (
-    <div>
-      <div className="services-title"> SERVICE RECORDS</div>
-      <div className="services-vehicle-name">Vehicle Name:</div>{" "}
-      {currentVehicle.name} Year Model: {currentVehicle.year} <br />
-      Services Rendered:
-      {servicesList.map((service) => {
-        const { name, id, date } = service;
-
-        return (
-          <li key={id}>
-            {" "}
-            {name} {date}{" "}
-            <button onClick={() => removeService(id)}> Remove</button>
-          </li>
-        );
-      })}
+    <div className="services-section">
+      <div className="services-container-top">
+        <div className="services-vehicle-name">{currentVehicle.name} </div>
+        <div className="services-vehicle-year">{currentVehicle.year} </div>
+        <img src={currentVehicle.img} className="services-vehicle-image"></img>
+      </div>
     </div>
   );
 }

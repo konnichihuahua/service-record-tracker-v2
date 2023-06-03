@@ -6,6 +6,7 @@ import { db } from "../firebase-config";
 import { auth } from "../firebase-config";
 import { BiArrowBack } from "react-icons/bi";
 import ServicesInfo from "./ServicesInfo";
+import { AiFillMinusCircle } from "react-icons/ai";
 
 function Services({
   servicesList,
@@ -38,14 +39,6 @@ function Services({
 
   return (
     <div className="services">
-      {!showAddService && (
-        <BiArrowBack
-          onClick={() => setShowServices(false)}
-          className="services-back-btn"
-          size={30}
-        />
-      )}
-
       {showAddService && (
         <AddService
           currentVehicle={currentVehicle}
@@ -54,6 +47,13 @@ function Services({
           setServicesList={setServicesList}
           getServices={getServices}
           setShowServices={setShowServices}
+        />
+      )}
+      {!showAddService && (
+        <BiArrowBack
+          onClick={() => setShowServices(false)}
+          className="services-back-btn"
+          size={30}
         />
       )}
       {!showAddService && (
@@ -91,7 +91,7 @@ function Services({
             <li key={id}>
               {" "}
               {name} {date}{" "}
-              <button onClick={() => removeService(id)}> Remove</button>
+              <AiFillMinusCircle onClick={() => removeService(id)} />
             </li>
           );
         })}

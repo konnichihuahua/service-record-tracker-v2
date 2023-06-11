@@ -464,12 +464,21 @@ input {
 
 .services-list {
   display: flex;
-  align-items: flex-start;
   justify-content: center;
+  align-items: center;
   width: 100%;
   font-size: 0.75rem;
   flex-direction: column;
   border: 1px solid #405bf5aa;
   padding: 1rem;
   border-radius: 10px;
+}
+
+.services-main-list {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  text-align: center;
+  width: 100%;
 }

@@ -1,12 +1,11 @@
 import React from "react";
 import AddService from "./AddService";
-import { useState } from "react";
 import { doc, updateDoc, arrayRemove } from "firebase/firestore";
 import { db } from "../firebase-config";
 import { auth } from "../firebase-config";
 import { BiArrowBack } from "react-icons/bi";
 import ServicesInfo from "./ServicesInfo";
-import { AiFillMinusCircle } from "react-icons/ai";
+import { AiFillMinusCircle, AiFillCalendar } from "react-icons/ai";
 
 function Services({
   servicesList,
@@ -88,10 +87,14 @@ function Services({
           const { name, id, date } = service;
 
           return (
-            <li key={id}>
-              {" "}
-              {name} {date}{" "}
-              <AiFillMinusCircle onClick={() => removeService(id)} />
+            <li key={id} class="services-main-list">
+              <div>{name} </div>
+              <div>
+                <AiFillCalendar /> {date}
+              </div>
+              <div>
+                <AiFillMinusCircle onClick={() => removeService(id)} />{" "}
+              </div>
             </li>
           );
         })}

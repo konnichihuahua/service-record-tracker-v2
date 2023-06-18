@@ -1,7 +1,7 @@
 import React from "react";
 import { auth, provider } from "../firebase-config";
 import { signInWithPopup } from "firebase/auth";
-import logo from "../logo.svg";
+import logo from "../logo.png";
 import { useState, useRef } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { getDocs, collection, setDoc, doc } from "firebase/firestore";
@@ -98,8 +98,9 @@ function Login({ setIsAuth }) {
             type="password"
             onChange={(e) => setPassword(e.target.value)}
           ></input>
-          <input type="submit" onClick={submitHandler}></input>
+          <input type="submit" onClick={submitHandler} className="btn"></input>
         </form>
+        or
         <div className="google-btn">
           <div className="google-icon-wrapper">
             <img
@@ -109,7 +110,7 @@ function Login({ setIsAuth }) {
             />
           </div>
           <p className="btn-text">
-            <b onClick={signInWithGoogle}>Sign in with google</b>
+            <b onClick={signInWithGoogle}>Continue with google</b>
           </p>
         </div>
       </div>

@@ -19,11 +19,8 @@ function Services({
   const removeService = (id) => {
     const newServices = servicesList.filter((service) => service.id !== id);
     const targetService = servicesList.filter((service) => service.id === id);
-    console.log(newServices);
     setServicesList(newServices);
-
     const removeServiceOnDatabase = async (id) => {
-      console.log(targetService[0]);
       const vehicleDoc = doc(
         db,
         "users",
@@ -87,7 +84,7 @@ function Services({
           const { name, id, date } = service;
 
           return (
-            <li key={id} class="services-main-list">
+            <li key={id} className="services-main-list">
               <div>{name} </div>
               <div>
                 <AiFillCalendar /> {date}

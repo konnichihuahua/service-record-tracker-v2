@@ -12,21 +12,21 @@ function AddServices({
 }) {
   const [serviceName, setserviceName] = useState("");
   const [serviceYear, setserviceYear] = useState("");
-  const [serviceImage, setserviceImage] = useState("");
+  // const [serviceImage, setserviceImage] = useState("");
   const serviceNameInputRef = useRef();
   const serviceYearInputRef = useRef();
-  const serviceImageInputRef = useRef();
+  // const serviceImageInputRef = useRef();
   const submitHandler = (e) => {
     e.preventDefault();
     const enteredName = serviceNameInputRef.current.value;
     const enteredYear = serviceYearInputRef.current.value;
-    const enteredImage = serviceImageInputRef.current.value;
+    // const enteredImage = serviceImageInputRef.current.value;
     const serviceId = Math.random();
     const newService = {
       id: serviceId,
       name: enteredName,
       date: enteredYear,
-      img: enteredImage,
+      // img: enteredImage,
     };
     setShowAddService(false);
     getServices(currentVehicle.id);
@@ -75,7 +75,7 @@ function AddServices({
               onChange={(e) => setserviceYear(e.target.value)}
             ></input>
           </label>
-          <label>
+          {/* <label>
             Image/Receipt Link:
             <input
               type="url"
@@ -83,7 +83,7 @@ function AddServices({
               value={serviceImage}
               onChange={(e) => setserviceImage(e.target.value)}
             ></input>
-          </label>
+          </label> */}
           <input type="submit" className="btn" onClick={submitHandler} />
         </form>
       </div>

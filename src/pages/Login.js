@@ -16,7 +16,7 @@ function Login({ setIsAuth }) {
     signInWithPopup(auth, provider)
       .then((result) => {
         localStorage.setItem("isAuth", true);
-        console.log(result.user.uid);
+
         setIsAuth(true);
         const usersCollectionRef = collection(db, "users");
 
@@ -25,9 +25,7 @@ function Login({ setIsAuth }) {
           const allUsers = data.docs.map((doc) => doc.id);
 
           if (allUsers.includes(result.user.uid)) {
-            console.log("roar");
           } else {
-            console.log("meow");
             const newUser = {
               id: Math.random(),
               email: result.user.email,
@@ -73,7 +71,7 @@ function Login({ setIsAuth }) {
       });
   };
   return (
-    <div className="loginPage">
+    <div className="login-page">
       <div className="form-container">
         <form className="signup-form">
           <img src={logo} className="App-logo" alt="logo" />
@@ -81,7 +79,8 @@ function Login({ setIsAuth }) {
             <div className="welcome-heading">Welcome back! </div>
             <p className="welcome-subheading">
               {" "}
-              We're excited to see you again.
+              We're excited to see you again. New here?{" "}
+              <a href="/signup">Click here to sign up! </a>
             </p>
           </div>
           <label> Email: </label>

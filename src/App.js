@@ -1,11 +1,5 @@
 import "./App.css";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import AddVehicle from "./pages/AddVehicle";
@@ -30,7 +24,7 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={isAuth ? <Home /> : <Navigate to="/login" />}
+          element={isAuth ? <Home /> : <Login setIsAuth={setIsAuth} />}
         />
         <Route path="signup" element={<Signup />}></Route>
         <Route path="/about" element={<About />} />
@@ -47,8 +41,6 @@ function App() {
             {" "}
             <img src={logo} className="App-logo" alt="logo" />
           </Link>
-          {/* <Link to="/"> Home </Link>
-          <Link to="/about"> About </Link> */}
         </div>
         <div className="right-menu">
           {!isAuth ? (

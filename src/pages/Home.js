@@ -20,7 +20,6 @@ function Home() {
   const [showServices, setShowServices] = useState(false);
   const [showAddService, setShowAddService] = useState(false);
   useEffect(() => {
-    console.log("renders");
     const vehiclesCollectionRef = collection(
       db,
       "users",
